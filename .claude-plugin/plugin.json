@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+  "name": "human-writing",
+  "description": "Write and edit prose that reads as one person thinking about one subject for one reader. Works at four levels: facts, structure, sentence shape, and mechanics.",
+  "version": "2.0.0",
+  "license": "MIT",
+  "keywords": [
+    "writing",
+    "editing",
+    "prose",
+    "style",
+    "humanize",
+    "academic"
+  ],
+  "skills": [
+    "./human-writing"
+  ],
+  "author": {
+    "name": "Sahil Baligar"
+  }
+}

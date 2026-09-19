@@ -1,0 +1,13 @@
+# Why most productivity apps fail their users
+
+Most productivity apps fail for a reason that has nothing to do with their features. They are built for the version of you that has already got things under control.
+
+That sounds glib, so here is what I mean concretely. The app assumes you will maintain it. You will file the task into the right project, set the right due date, add the right tag, and review the list on Sunday evening. Every one of those is a small act of administration, and administration is the thing you were trying to escape. So the app works beautifully for about eleven days, which is roughly how long anyone can sustain enthusiasm for filing.
+
+Complexity makes this worse, though not in the way the design critiques usually suggest. The problem is not that there are too many buttons. It is that each feature quietly adds an obligation. A tool with projects, tags, priorities, energy levels and contexts is asking you to make five decisions about a task whose entire content is "email Dan back." Nobody abandons an app because it is powerful. They abandon it because the powerful thing keeps asking questions.
+
+Integration is the other half. If your tasks live in one place and your calendar lives in another and your actual work lives in a third, then the app is not a system, it is a fourth place to look. Some tools solve this well. Most offer an export, or a connector that syncs one direction and silently stops in March.
+
+The marketing does real damage here too. An app that promises to transform how you work has set itself a test it cannot pass, and when it inevitably fails the test, you conclude that you are the problem. You are usually not the problem. The claim was.
+
+I have no clean answer, which is itself a sort of finding. The tools I have kept longest are the dull ones: a text file, a calendar I actually trust, and a single list that I am allowed to keep badly. They do less. That turns out to be most of the point, because a system you maintain at sixty per cent is worth more than a system you abandon at ninety.

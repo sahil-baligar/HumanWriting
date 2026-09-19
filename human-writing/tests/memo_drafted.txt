@@ -1,0 +1,11 @@
+Recommendation: move the Atlas launch from Q1 to Q2.
+
+Three things are behind schedule and only one of them can be fixed by working harder. The migration tooling is roughly two sprints from feature complete. The security review has not started because the review team is finishing the payments audit and is not free until the second week of February. And we have not run the load test that the Q1 date was set on the assumption of passing.
+
+The security review is the one that decides this. It takes four weeks when nothing is wrong, and we do not know yet whether anything is wrong, because the review is what tells us. Launching before it finishes means either shipping unreviewed or compressing the review into a window that has never been compressed successfully here. Neither is a decision I want to make in March under pressure.
+
+The cost of moving is real and I do not want to minimise it. Two enterprise customers were told Q1 verbally, though not contractually, and the sales team has built its first-half forecast on the earlier number. Someone has to call those customers, and it should be this month rather than in March.
+
+The cost of not moving is a launch we cannot support. Support has been staffed against a Q1 volume curve that assumed the migration tooling would reduce ticket load. If the tooling ships incomplete, that curve is wrong in the direction that costs the most.
+
+What I need from this meeting is a decision on the date, not on the plan. If we hold Q1, I will come back next week with what we cut to make it, and the honest answer is that it will be the migration tooling, which puts the load back on support.

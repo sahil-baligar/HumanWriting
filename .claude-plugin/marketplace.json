@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-marketplace-manifest.json",
+  "name": "human-writing",
+  "owner": {
+    "name": "Sahil Baligar"
+  },
+  "description": "Install the human-writing skill as a Claude plugin.",
+  "plugins": [
+    {
+      "name": "human-writing",
+      "source": "./",
+      "description": "Write and edit prose that reads as one person thinking about one subject for one reader.",
+      "license": "MIT",
+      "keywords": [
+        "writing",
+        "editing",
+        "prose",
+        "style",
+        "humanize",
+        "academic"
+      ]
+    }
+  ]
+}
