@@ -1,0 +1,1 @@
+The harbour "swallowed boats one by one" (Okafor, 1). The old men "said it was listening" (Okafor, 1). Mara's father "stopped counting the ones who did not come back." He believed "the sea kept its own ledger" (Okafor, 1). Later "Mara's father had stopped counting" (Okafor, 2).

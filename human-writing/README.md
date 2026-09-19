@@ -9,14 +9,16 @@ It is not a banned-word list, and it makes no claim about AI detectors.
 
 | File | Purpose |
 |---|---|
-| `SKILL.md` | The core. Loaded on every invocation. Under 400 lines. |
+| `SKILL.md` | The core. Loaded on every invocation. |
 | `PORTABLE.md` | Self-contained single file for ChatGPT, Gemini, or any assistant without file loading. |
 | `references/tells.md` | The full catalogue, with before-and-after pairs and strength classes. |
 | `references/structure.md` | The layer that survives paraphrase. The choice-space method. |
 | `references/genres.md` | Register targets. What "natural" means per genre. |
 | `references/voice.md` | Building a voice profile from a writer's samples. |
 | `references/evidence.md` | Every claim's source, status, and honest caveat. |
+| `references/quoting.md` | Quoting a work the writer supplied: exact text, (Author, page) citations. |
 | `scripts/scan.py` | A measuring instrument. Stdlib only, no dependencies. |
+| `scripts/verify_quotes.py` | Checks every quotation against the source, letter for letter, and its page. |
 | `tests/` | The before-and-after corpus behind `TEST_REPORT.md`. |
 
 ## Install
@@ -43,6 +45,7 @@ Give me four different openings.
 Run the scanner directly for a measurement:
 
 ```bash
+python scripts/verify_quotes.py essay.md book.txt --pages   # quotations vs source
 python scripts/scan.py draft.md              # full report
 python scripts/scan.py --summary a.md b.md   # compare drafts
 python scripts/scan.py --json draft.md       # raw counts

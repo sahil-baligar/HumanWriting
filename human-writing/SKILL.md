@@ -11,7 +11,7 @@ description: >
   quotations, experiences, or errors, and makes no claim about AI detectors.
 license: MIT
 metadata:
-  version: "2.0.0"
+  version: "2.1.0"
   sources:
     - "Wikipedia:Signs of AI writing (WikiProject AI Cleanup)"
     - "Russell, Rajendhran, Pham, Iyyer & Wieting, StoryScope, COLM 2026"
@@ -284,6 +284,35 @@ variance as description, never as a target. One of the v1 test cases produced a 
 a variance of exactly zero and was still the better paragraph, because it was technical
 documentation and regular sentences were right for it.
 
+## Punctuation
+
+A house rule, applied to all prose this skill writes or rewrites.
+
+**No dashes.** No em dash (—), no en dash (–), and no hyphen or double hyphen standing in
+for one (` - `, `--`). Write ranges in words: *1990 to 1995*, *pages 10 to 12*. Hyphens
+inside words (*well-known*, *twenty-one*, *re-enter*) are spelling, not dashes, and stay.
+
+**Avoid semicolons.** Make two sentences, or join the clauses with a conjunction.
+
+**Avoid colons in prose.** Let the sentence introduce its own list or explanation.
+*She wanted three things: money, time, and quiet* becomes *She wanted money, time, and
+quiet.* Colons that are notation rather than punctuation are fine: clock times, ratios,
+verse and act references, URLs, code, and a work's real title and subtitle.
+
+**Restructure, do not substitute.** Swapping every dash for a comma produces comma splices
+and run-ons, which is worse. Ask what the dash was doing. An aside becomes its own
+sentence or a subordinate clause. An explanation gets *because* or *so*. An appositive gets
+commas. A dramatic pause usually means the sentence was staging something, which is its own
+tell (B2 in `references/tells.md`).
+
+This is a style choice made for this skill, not a claim that dashes mark machine writing.
+The evidence on that is mixed and is recorded in `references/evidence.md`. The rule holds
+even when a writer's samples use dashes, unless the writer explicitly asks to keep them.
+Quotations from a source keep their punctuation exactly.
+
+`scripts/scan.py` reports every dash, semicolon, and prose colon, with the sentence, under
+**PUNCTUATION RULE**, and ignores anything inside quotation marks.
+
 ## Integrity
 
 These are not style preferences.
@@ -297,6 +326,45 @@ there.
 
 **Quotations are frozen.** Do not change words or punctuation inside quotation marks, do
 not detach a quote from its citation, do not invent a page number.
+
+### Quoting from a work the writer supplied
+
+This applies when the writer uploads or pastes a book, article, story, or other text and
+asks for an essay that draws on it. It is the strictest rule in the skill.
+
+**Everything inside quotation marks is copied from the source, word for word and letter for
+letter.** Spelling, capitals, punctuation, italics, archaic or British forms, the source's
+own errors, and the exact apostrophe and quote characters all stay as printed. Nothing is
+paraphrased, modernised, tidied, or "corrected" inside the marks. If a quotation is not in
+the supplied text exactly as written, it does not go in quotation marks. Paraphrase it
+without marks, or leave it out.
+
+**Quote a shorter span rather than editing a longer one.** Choose a contiguous run of words
+that fits your sentence as it stands. Build the sentence around the quotation instead of
+bending the quotation to fit the sentence. Do not cut a word in half at either end.
+
+**Cite immediately after the closing quotation mark,** in parentheses, author then page:
+
+> The narrator calls the harbour "a grey mouth that swallowed the boats one by one" (Okafor, 42).
+
+(An invented example. The format is the point.)
+
+The sentence's own full stop goes after the parenthesis. Use the author's surname as the
+source gives it. Use the page the passage is printed on in the supplied copy.
+
+**Never guess a page.** If the supplied text has no page numbers, or you cannot tell which
+page a passage is on, do not supply one. Ask the writer, or cite with a visible gap,
+`(Okafor, page ?)`, and say so in your note. An invented page number is an invented
+citation.
+
+**Check every quotation before returning.** Find each one in the source and compare it
+character by character. When the source is a file, run
+`python scripts/verify_quotes.py essay.md source.txt --pages`. It fails any quotation
+that does not match exactly, any that lacks a citation, and any cited to the wrong page.
+Details and edge cases are in `references/quoting.md`.
+
+Quoted material is exempt from the punctuation rule below. A quotation keeps its source's
+dashes, semicolons, and colons, because changing them would break this rule.
 
 **Citations attach to claims, not paragraphs.** When you move a sentence, its citation
 moves with it. Do not make a citation appear to support a claim it does not.
@@ -313,7 +381,8 @@ supplies their own draft, preserve their ideas and treat the work as editing.
 ## Voice
 
 If the writer supplies samples of their own writing, those samples outrank every general
-rule in this skill, including the ones about dashes, hedges, and formality. Read them
+rule in this skill, including the ones about hedges and formality. Two rules outrank the
+samples: exact quotation and the punctuation rule. Read them
 first. Match sentence length, punctuation habits, transition habits, formality, and how
 they open paragraphs. Protocol in `references/voice.md`.
 
@@ -342,7 +411,8 @@ on purpose.
 - A watched phrase inside a quotation, a title, a proper name, or a passage discussing the
   phrase is not a tell.
 - Weak-alone signals need company. Curly quotes come from Word, macOS, and any
-  Chicago-styled publisher. Em dashes are standard in edited prose; a 2026 study found most
+  Chicago-styled publisher. Dashes are removed under the punctuation rule, but their
+  presence in someone else's text is not evidence of anything. A 2026 study found most
   current models use them *less* than professional writers. Passive voice is correct in
   methods sections. Formal vocabulary outside the specific overused lists means nothing.
 - Correct grammar, formal register, and unsourced content are not tells. Neither is
@@ -383,6 +453,10 @@ Load these when the task needs them.
   between a writer's habits and the general rules.
 - `references/evidence.md` — what the research actually shows, with numbers, and what it
   does not show.
+- `references/quoting.md` — quoting a work the writer supplied: exact text, (Author, page)
+  citations, pages, editions, and what to do when the source has no page numbers.
+- `scripts/verify_quotes.py` — checks every quotation in an essay against the source text,
+  letter for letter, and checks each citation's page.
 - `scripts/scan.py` — the measuring instrument. `python scripts/scan.py draft.md`, or
   `--summary` to compare drafts, or `--json` for the raw counts.
 
@@ -414,3 +488,7 @@ Before returning prose:
 - [ ] The writer's sample outranked the general rules where they conflicted.
 - [ ] No manufactured errors, quirks, or fake candour.
 - [ ] No claim about detector behaviour.
+- [ ] No em dashes, en dashes, or hyphens used as dashes. Semicolons and prose colons
+      rewritten out. Quotations left as the source printed them.
+- [ ] With a supplied source: every quotation matches it letter for letter and is followed
+      by (Author, page). No page number guessed.

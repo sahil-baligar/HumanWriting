@@ -177,3 +177,31 @@ Two patterns carried by v1 were retired on evidence: **false ranges** and **syno
 Both were dropped upstream in 2026, and elegant variation is now classed as a historical
 indicator caused by repetition penalties in older models. In technical prose, repeating the
 correct term is better than varying it.
+
+## v2.1.0 additions
+
+**Quotation verifier.** `tests/quote_essay.md` quotes `tests/quote_source.txt` correctly
+and passes, 4 of 4. `tests/quote_essay_bad.md` contains one of each common failure and
+fails 5 of 5:
+
+| Quotation in the essay | Status | What was wrong |
+|---|---|---|
+| "swallowed boats one by one" | not found | Dropped *the* |
+| "said it was listening" | not found | Paraphrase inside quotation marks |
+| "stopped counting the ones who did not come back." | no citation | No (Author, page) |
+| "the sea kept its own ledger" (Okafor, 1) | wrong page | It is on page 2 |
+| "Mara's father had stopped counting" | typography | Straight apostrophe, source has a curly one |
+
+```bash
+python scripts/verify_quotes.py tests/quote_essay.md tests/quote_source.txt --pages      # exit 0
+python scripts/verify_quotes.py tests/quote_essay_bad.md tests/quote_source.txt --pages  # exit 1
+```
+
+**Punctuation rule.** `scan.py` now reports dashes, semicolons, and prose colons under
+PUNCTUATION RULE and adds a `punc` column to `--summary`. Quoted material, inline code,
+URLs, and clock times are ignored. The good essay above scans clean even though its source
+contains an em dash and a semicolon, because those appear only inside quotations.
+
+The punctuation rule has not been through blind review. It is a style rule, and
+`references/evidence.md` records that the published evidence does not support it as a
+humanising measure.

@@ -10,6 +10,19 @@ without a traceable source).
 
 Last reviewed: September 2026. Lexical findings rot fastest; structural ones do not.
 
+**Source snapshots for v2.1**, read on 18 September 2026:
+
+- *Wikipedia:Signs of AI writing*, revision 1374941330 (14 September 2026). New or changed
+  since v2.0 and now in the catalogue: procedural edit summaries that report what was
+  preserved or avoided (tells E7), leads that treat a descriptive title as a proper noun
+  (E8), the reversed *Y rather than X* form of negative parallelism (B1, noted as
+  especially common in Grok output), Perplexity `[attached_file:1]` and `[web:1]` markers,
+  and the expanded historical-indicators list.
+- `blader/humanizer` v3.0.0 at commit `9862685`. Its 25 patterns map onto this catalogue
+  as shown in `research/README.md`. No pattern there is missing here. Its "dashes as the
+  universal connector" item is now covered by the house punctuation rule (E9).
+- Russell et al., *StoryScope* (arXiv:2604.03136v6, CC0). A copy is kept in `research/`.
+
 ---
 
 ## The three results that shape this skill
@@ -255,7 +268,16 @@ marks, dashes, parentheses, semicolons, and colons than human text.
 Wikipedia's own page carries a note that its em-dash section may belong in the historical
 category.
 
-**Do not ban the em dash.** Match the writer's sample.
+**What this means for auditing.** Never treat someone else's dashes as evidence of
+machine authorship.
+
+**The v2.1 house rule.** From v2.1 the skill writes without dashes and avoids semicolons
+and colons in its own output. That is a style decision made by the skill's author, not a
+finding. The evidence above does not support it as a humanising measure, and the Terčon &
+Dobrovoljc result points the other way for semicolons and colons: removing them moves a
+text's punctuation profile *further* from the human average, not closer. The rule is kept
+because it forces a sentence to commit to how its clauses relate, which is the real
+problem the dash was hiding. Anyone citing it should cite it as house style.
 
 ---
 

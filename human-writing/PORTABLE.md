@@ -58,6 +58,49 @@ points. Swapping words alone does almost nothing.
 - **No detector claims.** This improves writing. It does not promise any classifier will
   call the result human, and must not be tuned against one.
 
+## Quoting a work the writer supplied
+
+When the writer uploads or pastes a book, article, story, or other text and asks for an
+essay that draws on it, this is the strictest rule you follow.
+
+- **Everything inside quotation marks is copied from the source word for word and letter
+  for letter.** Spelling, capitals, punctuation, italics, old or British forms, the
+  author's own errors, and the exact apostrophe and quote characters stay as printed. If
+  the words are not in the supplied text exactly as written, they do not go in quotation
+  marks. Paraphrase without marks, or leave them out.
+- **Quote a shorter span instead of editing a longer one.** Pick a contiguous run of words
+  and build your sentence around it. Do not drop, swap, or add a word inside the marks, and
+  do not start or end a quotation in the middle of a word.
+- **Cite right after the closing quotation mark as (Author, page).** Example, invented for
+  format: The narrator calls the harbour "a grey mouth that swallowed the boats one by one"
+  (Okafor, 42). The sentence's full stop goes after the parenthesis. Every quotation gets
+  its own citation.
+- **Never guess a page.** If the source has no page numbers or you cannot tell the page,
+  write (Author, page ?) and tell the writer. An invented page number is an invented
+  citation.
+- **Check each quotation against the source before you answer,** one at a time, from the
+  text itself and not from memory. List any quotation you could not verify and any page you
+  could not find in your note to the writer.
+- Quotations keep the source's dashes, semicolons, and colons. The punctuation rule below
+  does not apply inside quotation marks.
+
+## Punctuation
+
+A house rule for all prose you write or rewrite.
+
+- **No dashes.** No em dash, no en dash, no hyphen or double hyphen standing in for one.
+  Write ranges in words (1990 to 1995). Hyphens inside words (well-known, twenty-one) are
+  spelling and stay.
+- **Avoid semicolons.** Make two sentences, or join the clauses with a conjunction.
+- **Avoid colons in prose.** Let the sentence introduce its own list or explanation. Clock
+  times, ratios, verse references, URLs, code, and real titles with subtitles are fine.
+- **Restructure, do not substitute.** A comma swapped in for a dash usually makes a comma
+  splice. Decide what the mark was doing. An aside becomes its own sentence or a clause, an
+  explanation gets *because* or *so*, an appositive gets commas.
+- This holds even when the writer's samples use dashes, unless the writer explicitly asks
+  to keep them. It is a style choice, not a claim that dashes prove machine authorship, so
+  never cite someone else's dashes as evidence in an audit.
+
 ## The loop
 
 **1. Read the whole thing once and mark.** Including paragraph-scale patterns: a contrast
@@ -295,7 +338,8 @@ wrong for its genre.
 ## Voice
 
 If the writer supplies samples of their own work, those samples outrank every rule here,
-including the ones about dashes, hedges, and formality. Read them first. Match sentence
+including the ones about hedges and formality, but not the quotation rule or the
+punctuation rule. Read them first. Match sentence
 length, punctuation rate, transitions, formality, and how paragraphs open. Never infer a
 voice from AI-generated text.
 
@@ -309,9 +353,10 @@ Every pattern here describes a default choice, and a writer can make any of them
 
 - Text written before 30 November 2022 is not AI-written.
 - A watched phrase inside a quotation, a title, or a proper name is not a tell.
-- **Do not ban the em dash.** Human usage ranges from 0.33 to 17.12 per thousand words
-  across published essayists, a fiftyfold spread. Some current models use fewer than
-  professional writers do. Match the writer's own rate.
+- **Someone else's em dashes are not evidence.** Human usage ranges from 0.33 to 17.12 per
+  thousand words across published essayists, a fiftyfold spread, and some current models use
+  fewer than professional writers do. You remove dashes from your own output under the
+  punctuation rule. You do not treat them as a tell when auditing.
 - Curly quotes come from Word, macOS, and any Chicago-styled publisher. The tell is *mixing*
   curly and straight, not curliness.
 - Correct grammar, formal register, unsourced content, and Markdown are not tells.
@@ -354,6 +399,9 @@ features. Do not output a probability.
 ## Checklist
 
 - [ ] No invented fact, source, quotation, number, date, or experience.
+- [ ] No dashes. Semicolons and prose colons rewritten out. Quotations untouched.
+- [ ] With a supplied source: every quotation matches it letter for letter and is followed
+      by (Author, page). No page guessed.
 - [ ] Every supported claim survived; citations still attach to their claims.
 - [ ] Structure was examined, not just wording.
 - [ ] No paste artifacts, assistant residue, or cutoff disclaimers.

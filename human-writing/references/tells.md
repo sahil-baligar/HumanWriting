@@ -514,17 +514,63 @@ artifacts. Strip them.
 Describe what the text does now. Previous versions belong in change logs and migration
 guides.
 
+## E7. Reporting what was not changed
+
+Edit summaries, commit messages, and change notes that list what was left alone, what was
+avoided, and which rules were followed. A person describing an edit says what they did. A
+model that was told to "preserve X" and "avoid Y" reports back on both.
+
+> Revised the History section to improve neutrality and verifiability while preserving all
+> existing citations and ensuring no new claims were introduced.
+
+> Cut two unsourced sentences from History.
+
+Watch for: *preserved*, *retained*, *avoided*, *ensured*, *aimed to*, *in line with the
+guidelines*, *to improve clarity and flow*. Say what changed. If nothing else changed, say
+nothing about it.
+
+This applies to the note this skill returns with a rewrite, too. List the structural
+changes. Do not list the rules you obeyed.
+
+## E8. A title introduced as if it were a thing
+
+The opening sentence treats a descriptive title, or the name of a list or topic, as a proper
+noun that "refers to" something.
+
+> **Catchment area (health)** refers to the geographic area from which a health facility
+> draws its patients.
+
+> A hospital's catchment area is the geographic area its patients come from.
+
+Start with the subject, not with the label on the page.
+
+## E9. Dashes, semicolons, and colons (house rule)
+
+This skill writes without dashes and avoids semicolons and colons in prose. See the
+Punctuation section of SKILL.md for the full rule. The pattern it targets is the dash as a
+universal connector: one mark joining asides, explanations, lists, and dramatic pauses
+alike, so that no clause has to commit to how it relates to the one before.
+
+> The migration was fast — too fast — and the logs showed it: three services never
+> restarted.
+
+> The migration was too fast. Three services never restarted, and the logs showed it.
+
+Rewrite the relationship the mark was hiding. Do not swap a comma in for the dash. Leave
+quotations exactly as the source printed them.
+
 ---
 
 # F. Weak alone
 
 Real writers do these deliberately. Count them only with company.
 
-**Em dashes.** Standard in edited prose. A 2026 study found that among current models only
-one used em dashes more than professional writers, and one used them noticeably less. The
-signal, if any, is the *rate against the writer's own sample*, plus inconsistent spacing
-(some spaced, some not) which indicates a paste. If the writer's sample uses dashes, match
-its rate. Do not ban the mark.
+**Em dashes in someone else's text.** Standard in edited prose. A 2026 study found that
+among current models only one used em dashes more than professional writers, and one used
+them noticeably less. When *auditing*, do not treat a dash as evidence of anything except,
+perhaps, inconsistent spacing (some spaced, some not), which indicates a paste. When
+*writing or rewriting*, remove them anyway under the house rule (E9). The rule is a style
+choice, and the audit must not pretend it is a detection finding.
 
 **Curly quotes.** Word, macOS, iOS, LanguageTool, and every Chicago-styled publisher
 produce them. The tell is *mixing* curly and straight in one document, not curliness.
@@ -662,6 +708,11 @@ Do not act on these. Several point the other way.
 - **Unsourced content.** Most writing is unsourced.
 - **Markdown** from someone who writes in Markdown daily.
 - **Anything written before 30 November 2022.**
+- **Historical tells in current text.** Wikipedia now lists these as indicators of older
+  models (roughly 2022 to 2024) that current ones rarely produce: *it's important to note*
+  style didactic disclaimers, section-ending summaries, prompt refusals left in the text,
+  abrupt cut-offs, and elegant variation (a new synonym for the subject in every sentence,
+  from repetition penalties). Useful for dating old text. Weak evidence about new text.
 - **Plain copulas, plain verbs, flat superlatives, ordinary hedges, mildly wordy
   connectives.** These are signals of human writing. Protect them. See the
   "Do not over-tighten" section of SKILL.md.

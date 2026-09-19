@@ -39,7 +39,7 @@ import sys
 import unicodedata
 from collections import Counter
 
-VERSION = "2.0.0"
+VERSION = "2.1.0"
 
 # ===========================================================================
 # 1. VOCABULARY
@@ -68,6 +68,8 @@ VOCAB = {
     "current": [
         "emphasizing", "enhance", "highlighting", "showcasing",
         "independent coverage", "trade publications", "active social media",
+        # From blader/humanizer v3.0.0 (commit 9862685), pattern 12.
+        "quietly", "deep dive",
     ],
     # Recurring across eras; documented in the lexical-shift literature.
     "persistent": [
@@ -155,6 +157,8 @@ PHRASES = [
     ("staging.deep_saying", r"\b(?:at\s+(?:its|their|the)\s+(?:core|heart)|the\s+(?:real|true|deeper|bigger|fundamental)\s+(?:question|issue|problem|point)\s+is|what\s+(?:truly|really)\s+matters|the\s+heart\s+of\s+the\s+matter|here(?:in)?\s+lies)\b", "replace the saying with the specific claim", "act"),
     ("staging.aphorism", r"\b(?:is|becomes)\s+the\s+(?:language|currency|architecture|grammar|price)\s+of\b", "state the claim", "act"),
     ("staging.runup", r"\blet'?s\s+(?:dive|delve|explore|unpack|take\s+a\s+look|break\s+(?:it|this)\s+down)\b|\bwithout\s+further\s+ado\b", "delete the run-up and make the point", "act"),
+    ("procedural.preserving", r"\bwhile\s+(?:preserving|retaining|maintaining|keeping)\s+(?:all\s+|the\s+)?(?:existing|original)\b|\b(?:ensured|ensuring)\s+(?:that\s+)?no\s+new\b|\bin\s+line\s+with\s+(?:the\s+)?(?:guidelines|policy|policies|style\s+guide)\b", "say what changed; drop what did not", "weak"),
+    ("lead.refers_to", r"(?m)^\s*\*\*[^*\n]{2,60}\*\*\s+(?:refers\s+to|is\s+a\s+term\s+(?:for|that))\b", "start with the subject, not the label", "weak"),
     ("staging.candor", r"(?im)^\s*(?:Honestly|Look|Here'?s\s+the\s+thing|The\s+thing\s+is|Real\s+talk|Let'?s\s+be\s+honest)[,:.?]", "only if the writer actually talks this way", "act"),
     ("staging.strawman", r"\b(?:some\s+(?:might|may|would|could)\s+(?:argue|say|claim|contend)|one\s+might\s+be\s+tempted|a\s+tempting\s+approach|an\s+obvious\s+approach\s+would|you\s+might\s+think|it\s+would\s+be\s+easy\s+to\s+just)\b", "answering an objection nobody raised", "act"),
     ("staging.disclaim", r"\b(?:don'?t\s+get\s+me\s+wrong|to\s+be\s+clear|I'?m\s+not\s+saying|this\s+is\s+not\s+to\s+say)\b", "usually a leftover from an earlier draft", "weak"),
@@ -266,8 +270,8 @@ ARTIFACTS = [
 # ===========================================================================
 
 TYPOGRAPHY = [
-    ("em_dash", "—", "Not a defect by itself. Compare the rate against the writer's own sample; a 2026 study found only some models exceed professional-writer rates."),
-    ("en_dash", "–", "Correct for ranges. Wrong as a sentence break."),
+    ("em_dash", "—", "Breaks the punctuation rule. Restructure the sentence rather than swapping in a comma."),
+    ("en_dash", "–", "Breaks the punctuation rule. Write ranges as '1990 to 1995'."),
     ("curly_double_open", "“", "Fine if the whole document uses them. A tell only when mixed with straight quotes."),
     ("curly_double_close", "”", "Fine if consistent."),
     ("curly_apostrophe", "’", "Fine if consistent. Word, macOS and iOS produce these too."),
@@ -482,6 +486,33 @@ def check_typography(text, total):
         out.append({"label": "mixed_quote_styles", "char": "", "count": 0, "per_1000w": 0,
                     "note": "Document mixes straight and curly quotes. Inconsistency is the tell, not curliness."})
     return out
+
+
+def check_punctuation(text, total):
+    """The v2.1 house rule: no dashes of any kind, avoid semicolons and colons.
+
+    Counts prose only. Inline code, URLs, clock times, ratios and verse
+    references are masked first, because a colon there is notation. Hyphens
+    inside words are spelling and are never counted.
+    """
+    t = re.sub(r"`[^`\n]*`", " ", text)
+    t = re.sub(r"\b[a-z][a-z0-9+.-]*://\S+", " ", t, flags=re.I)
+    t = re.sub(r"(\d)\s*:\s*(\d)", r"\1.\2", t)
+    # Quoted material is exempt: a quotation keeps its source's punctuation.
+    t = re.sub(r'"[^"\n]*"|“[^”\n]*”', '""', t)
+    breaks = r"—|–|(?<=\S)[ \t]+-{1,3}[ \t]+(?=\S)|\w--\w|;|:(?=\s|$)"
+    hits = {
+        "em_dash": t.count("—"),
+        "en_dash": t.count("–"),
+        "hyphen_as_dash": len(re.findall(r"(?<=\S)[ \t]+-{1,3}[ \t]+(?=\S)|\w--\w", t)),
+        "semicolon": t.count(";"),
+        "colon": len(re.findall(r":(?=\s|$)", t, flags=re.M)),
+    }
+    examples = [m.group(0).strip()[:90] for m in
+                re.finditer(r"[^.!?\n]*(?:" + breaks + r")[^.!?\n]*", t, flags=re.M)][:6]
+    n = sum(hits.values())
+    return {"hits": hits, "total": n, "per_1000w": per_k(n, total),
+            "examples": examples}
 
 
 def check_formatting(text):
@@ -704,6 +735,7 @@ def analyse(raw):
             "openers": check_openers(text),
             "triads": check_triads(text),
             "typography": check_typography(text, tw),
+            "punctuation": check_punctuation(text, tw),
             "formatting": check_formatting(text),
             "repetition": check_repetition(text, tw)}
 
@@ -913,6 +945,20 @@ def render(r, name=""):
         add("    clean")
     add("")
 
+    pu = r["punctuation"]
+    add("[8b] PUNCTUATION RULE  (no dashes, avoid semicolons and colons)")
+    if pu["total"]:
+        add("    " + "  ".join(f"{k} {v}" for k, v in pu["hits"].items() if v)
+            + f"   ({pu['per_1000w']}/1k)")
+        for e in pu["examples"]:
+            add(f"      > {e}")
+        add("    ! Rewrite the sentence around the break. Two sentences, a")
+        add("      conjunction, or a subordinate clause. A comma swapped in for")
+        add("      a dash usually leaves a splice.")
+    else:
+        add("    clean")
+    add("")
+
     fm = r["formatting"]
     add("[9] FORMATTING")
     add(f"    headings {fm['headings']}  bold spans {fm['bold_spans']}"
@@ -988,10 +1034,12 @@ SUMMARY_HEADER = (
     "  ptcp/1k = participial clauses per 1000 words. Models run 5.3x human.\n"
     "  para sd = spread of paragraph lengths. Near zero means one template.\n"
     "  spec    = dates, figures, quantities, named times. Zero is a warning.\n"
-    "  No column has a target value. Compare drafts; do not chase numbers.\n\n"
+    "  punc    = dashes, semicolons and prose colons. The one column with a\n"
+    "            target, which is zero, by house rule.\n"
+    "  No other column has a target value. Compare drafts, not numbers.\n\n"
     f"{'file':<20}{'words':>6}{'stock':>6}{'vocab':>7}{'short%':>8}"
-    f"{'nom/1k':>8}{'ptcp/1k':>9}{'para sd':>9}{'spec':>6}{'artf':>6}\n"
-    + "-" * 85)
+    f"{'nom/1k':>8}{'ptcp/1k':>9}{'para sd':>9}{'spec':>6}{'artf':>6}{'punc':>6}\n"
+    + "-" * 91)
 
 
 def summary_row(r, name):
@@ -1007,7 +1055,7 @@ def summary_row(r, name):
             f"{r['density']['nominalizations_per_1000w']:>8}"
             f"{r['syntax']['participial_per_1000w']:>9}"
             f"{r['paragraph_shape'].get('stdev', 0):>9}"
-            f"{spec:>6}{len(r['artifacts']):>6}")
+            f"{spec:>6}{len(r['artifacts']):>6}{r['punctuation']['total']:>6}")
 
 
 def emit(s):
